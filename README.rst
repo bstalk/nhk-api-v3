@@ -2,22 +2,17 @@
 nhk-api
 =======
 
-.. image:: https://drone.io/github.com/drillbits/nhk-api/status.png
-   :target: https://drone.io/github.com/drillbits/nhk-api/latest
-
-Python client for NHK API.
+Python client for NHK API V3.
 
 Requirements
 ============
 
-- Python 3.3
+- Python 3.10
 
 Installation
 ============
 
 ::
-
-   $ pip install nhk-api
 
 Usage
 =====
@@ -25,31 +20,18 @@ Usage
 ::
 
    from datetime import date
-   from nhk import ProgramGuide
+   from nhk import ProgramGuideV3
    
+   client = ProgramGuideV3(api_key='YOUR_API_KEY')
    
-   client = ProgramGuide(api_key='YOUR_API_KEY')
+   # Get radio program list
+   program_list = client.pg_date_radio('130', 'r3', date.today())
    
-   # Get program list
-   # http://api-portal.nhk.or.jp/doc_list-v1_con
-   program_list = client.pg_list('130', 'g1', date.today())
-   # or
-   # program_list = client.pg_list('東京', 'ＮＨＫ総合１', date.today())
+   # Get radio program list by genre
+   program_list_by_genre = client.pg_genre_radio('130', 'r3', '0402', date.today())
    
-   # Get program list by genre
-   # http://api-portal.nhk.or.jp/doc_genre-v1_con
-   program_list_by_genre = client.pg_genre('130', 'g1', '0700', date.today())
-   # or
-   # program_list_by_genre = client.pg_genre('東京', 'ＮＨＫ総合１', 'アニメ／特撮(国内アニメ)', date.today())
+   # Get radio broadcast event information
+   program_info = client.broadcast_event_radio('r3-130-2026011374258')
    
-   # Get program information
-   # http://api-portal.nhk.or.jp/doc_info-v1_con
-   program_info = client.pg_info('130', 'g1', '2014021499999')
-   # or
-   # program_info = client.pg_info('東京', 'ＮＨＫ総合１', '2014021499999')
-   
-   # Get information of program that is broadcasting now
-   # http://api-portal.nhk.or.jp/doc_now-v1_con
-   program_now = client.pg_now('130', 'g1')
-   # or
-   # program_now = client.pg_now('東京', 'ＮＨＫ総合１')
+   # Get information of radio program that is broadcasting now
+   program_now = client.pg_now_radio('130', 'r3')
