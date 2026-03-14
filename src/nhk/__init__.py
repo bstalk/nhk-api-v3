@@ -1,3 +1,3 @@
-__version__ = '0.0.2'
+__version__ = '0.0.3'
 
-from .client import ProgramGuide, ProgramGuideV3  # noqa
+from .client import ProgramGuideV3  # noqa
